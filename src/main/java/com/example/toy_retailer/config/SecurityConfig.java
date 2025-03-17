@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/transactions/**","/generate-sales-report","/api/transactions").permitAll()
+                        .requestMatchers("/receive-transactions","/generate-sales-report","/api/transactions","/send-to-sales-team","/send-to-back-office").permitAll()
                         .anyRequest().authenticated()
                 )
                 .httpBasic(withDefaults());
