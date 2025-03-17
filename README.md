@@ -25,7 +25,9 @@ Connected to the S3 for uploading the reports and viewing them for the sales tea
 ![Screenshot 2025-03-17 113949](https://github.com/user-attachments/assets/ebe26e30-4c8b-40a9-b195-21be9eb838ae)
 
 
-![Screenshot 2025-03-17 114121](https://github.com/us![Screenshot 2025-03-17 114220](https://github.com/user-attachments/assets/c9d092e6-2777-4696-9164-29023867a5af)
-er-attachments/assets/96b07fd8-5b0a-47ed-b898-8cd427b5a4d7)
+![Screenshot 2025-03-17 114121](https://github.com/user-attachments/assets/fa088765-fd2b-475e-a4d5-542603a3441e)
+
+
+![Screenshot 2025-03-17 114220](https://github.com/user-attachments/assets/35edf94b-e026-4e0d-a75e-47a40810c730)
 
 
