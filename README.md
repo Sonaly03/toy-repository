@@ -20,3 +20,4 @@ Connected to the AWS cloud for storing the database by using teh RDS
 Connected to the S3 for uploading the reports and viewing them for the sales team
 
 
+![Screenshot 2025-03-17 112252](https://github.com/user-attachments/assets/8aabdb48-ad17-4cb5-a23a-c80206fd04cb)
