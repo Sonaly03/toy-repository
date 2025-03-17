@@ -32,4 +32,7 @@ public class TransactionService {
                 && transaction.getQuantity() != null && transaction.getQuantity() > 0;
     }
 
+    public List<Transaction> getAllTransactions() {
+        return transactionRepository.findAll();
+    }
 }

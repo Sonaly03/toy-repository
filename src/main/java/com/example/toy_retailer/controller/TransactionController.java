@@ -1,17 +1,20 @@
 package com.example.toy_retailer.controller;
 
 import com.example.toy_retailer.entity.Transaction;
-import com.example.toy_retailer.service.BatchJobLauncher;
+import com.example.toy_retailer.scheduler.BatchJobLauncher;
 import com.example.toy_retailer.service.TransactionService;
 import com.example.toy_retailer.service.BackOfficeService;
 import com.example.toy_retailer.service.SalesTeamService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/transactions")
 public class TransactionController {
 
     @Autowired
@@ -24,39 +27,57 @@ public class TransactionController {
     private BackOfficeService backOfficeService;
 
     @PostMapping("/receive-transactions")
-    public String receiveTransactions(@Valid @RequestBody List<Transaction> transactions) {
+    public ResponseEntity<String> receiveTransactions(@Valid @RequestBody List<Transaction> transactions) {
         try {
-            // Ensure data integrity and security
             System.out.println("Received transactions: " + transactions);
             transactionService.processTransactions(transactions);
-            return "Transactions received and processed successfully!";
+            return new ResponseEntity<>("Transactions received and processed successfully!", HttpStatus.OK);
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Failed to process transactions: " + e.getMessage();
+            return new ResponseEntity<>("Failed to process transactions: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/send-to-sales-team")
-    public String sendToSalesTeam() {
+    public ResponseEntity<String> sendToSalesTeam() {
         try {
             // Trigger batch job to send data to the Sales Team
             batchJobLauncher.runJob();
-            return "Batch job to send data to Sales Team started successfully!";
+            return new ResponseEntity<>("Batch job to send data to Sales Team started successfully!", HttpStatus.OK);
         } catch (Exception e) {
-           // e.printStackTrace();
-            return "Failed to start the batch job: " + e.getMessage();
+            return new ResponseEntity<>("Failed to start the batch job: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/generate-report")
+    public ResponseEntity<String> generateReport() {
+        try {
+            salesTeamService.generateAndSendReport();
+            return ResponseEntity.ok("Report generated and sent successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error generating report: " + e.getMessage());
         }
     }
 
     @PostMapping("/send-to-back-office")
-    public String sendToBackOffice(@RequestBody Transaction transaction) {
+    public ResponseEntity<String> sendToBackOffice(@RequestBody Transaction transaction) {
         try {
-            // Send transaction data in real-time to the Back Office vendor
             backOfficeService.sendTransactionToBackOffice(transaction);
-            return "Transaction sent to Back Office successfully!";
+            return ResponseEntity.ok("Transaction sent to Back Office successfully!");
         } catch (Exception e) {
-          //  e.printStackTrace();
-            return "Failed to send transaction to Back Office: " + e.getMessage();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to send transaction to Back Office: " + e.getMessage());
+        }
+    }
+    public ResponseEntity<List<Transaction>> getAllTransactions() {
+        try {
+            List<Transaction> transactions = transactionService.getAllTransactions();
+
+            if (transactions.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(transactions);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 }

@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BackOfficeService {
 
-    // Method to handle sending transaction data to the back office
     public void sendTransactionToBackOffice(Transaction transaction) {
-        // Validate transaction data
+
         if (transaction == null || transaction.getId() == null) {
             throw new IllegalArgumentException("Invalid transaction data.");
         }
