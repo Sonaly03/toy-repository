@@ -68,6 +68,7 @@ public class TransactionController {
                     .body("Failed to send transaction to Back Office: " + e.getMessage());
         }
     }
+    @GetMapping
     public ResponseEntity<List<Transaction>> getAllTransactions() {
         try {
             List<Transaction> transactions = transactionService.getAllTransactions();
