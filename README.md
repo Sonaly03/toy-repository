@@ -10,14 +10,15 @@ Implemented security config as well to handle unauthenticated access.
 Created a Transaction class to handle the various attributes of transactions
 
 Implemented 4 HTTP endpoints:
-    GET: to get all the transactions
-    POST: to send the transactions to be saved in the PostgresSQL db
-    POST: to send transaction data to backoffice
-    POST: to generate sales report and store in S3
-    POST: to send to sales office manually triggering batch process
+    GET(http://localhost:8080/api/transactions): to get all the transactions
+    POST(http://localhost:8080/api/transactions/recieve-transactions): to send the transactions to be saved in the PostgresSQL db
+    POST(http://localhost:8080/api/transactions/send-to-back-office): to send transaction data to backoffice
+    POST(http://localhost:8080/api/transactions/generate-report): to generate sales report and store in S3
+    POST(http://localhost:8080/api/transactions/send-to-sales-team): to send to sales office manually triggering batch process
 
 Connected to the AWS cloud for storing the database by using teh RDS
 Connected to the S3 for uploading the reports and viewing them for the sales team
+Tested using postman by hitting the differnent endpoints and seeing the data saved inthe db and the reports generated on s3.
 
 
 ![Screenshot 2025-03-17 112252](https://github.com/user-attachments/assets/8aabdb48-ad17-4cb5-a23a-c80206fd04cb)
